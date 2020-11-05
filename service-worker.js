@@ -29,74 +29,57 @@ const urlsToCache = [
     { url: 'https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2', revision: rev }
 ];
 
-if (workbox)
-    console.log(`Workbox berhasil dimuat`);
-else
+if (!workbox) {
     console.log(`Workbox gagal dimuat`);
-
-
-workbox.precaching.precacheAndRoute(urlsToCache);
-workbox.routing.registerRoute(
-    /\.(?:png|gif|jpg|jpeg|svg|html|css|js|json)$/,
-    workbox.strategies.staleWhileRevalidate()
-);
-
-/*
-
-workbox.routing.registerRoute(
-    /\.(?:png|gif|jpg|jpeg|svg|html|css|js|json)$/,
-    workbox.strategies.cacheFirst()
-);
-
-
-workbox.routing.registerRoute(
-    // new RegExp('/pages/'),
-    /\.(?:png|gif|jpg|jpeg|svg|html|css|js|json)$/,
-    workbox.strategies.staleWhileRevalidate()
-);
-
-
-self.addEventListener("install", event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+} else {
+    console.log(`Workbox berhasil dimuat`);
+    workbox.precaching.precacheAndRoute(urlsToCache);
+    workbox.routing.registerRoute(
+        /\.(?:png|gif|jpg|jpeg|svg|html|json|js|css)$/,
+        workbox.strategies.cacheFirst({
+            cacheName: 'files'
+        })
     );
-});
 
-
-self.addEventListener("fetch", event => {
-    const base_url = "https://api.football-data.org/v2/";
-    if (event.request.url.indexOf(base_url) > -1) {
-        event.respondWith(
-            caches.open(CACHE_NAME)
-                .then(cache => fetch(event.request)
-                    .then(response => {
-                        cache.put(event.request.url, response.clone());
-                        return response;
-                    }))
-        );
-    } else {
-        event.respondWith(
-            caches.match(event.request, { ignoreSearch: true }).then(response => response || fetch(event.request))
-        )
-    }
-});
-
-//mekanisme penghapusan cache yang lama agar tidak membebani pengguna
-self.addEventListener("activate", event => {
-    event.waitUntil(caches.keys()
-        .then(cacheNames => Promise.all(
-            cacheNames.map(cacheName => {
-                if (cacheName !== CACHE_NAME) {
-                    console.log(`ServiceWorker: cache ${cacheName} dihapus`);
-                    return caches.delete(cacheName);
-                }
-            })
-        ))
+    workbox.routing.registerRoute(
+        new RegExp('/css/'),
+        new workbox.strategies.StaleWhileRevalidate({
+            cacheName: 'css',
+        })
     );
-});
 
+    workbox.routing.registerRoute(
+        new RegExp('/js/'),
+        new workbox.strategies.StaleWhileRevalidate({
+            cacheName: 'js',
+        })
+    );
+    workbox.routing.registerRoute(
+        new RegExp('/img/'),
+        new workbox.strategies.StaleWhileRevalidate({
+            cacheName: 'images',
+        })
+    );
 
-*/
+    workbox.routing.registerRoute(
+        new RegExp('/pages/'),
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'pages'
+        })
+    );
+
+    workbox.routing.registerRoute(
+        new RegExp('https://api.football-data.org/v2/'),
+        workbox.strategies.staleWhileRevalidate()
+    );
+
+    workbox.routing.registerRoute(
+        /.*(?:googleapis|gstatic)\.com/,
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'google-fonts',
+        })
+    );
+}
 
 
 

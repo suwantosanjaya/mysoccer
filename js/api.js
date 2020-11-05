@@ -286,7 +286,11 @@ const getFavouriteSchedules = () => {
                 })
             }
         } else {
-            element.innerHTML = "<h4>Favourites is empty!!!</h4>";
+            element.innerHTML = `<div class="row teal lighten-4">
+                                    <div class="col s12 center">
+                                        Favourites is empty!!!
+                                    </div>
+                                 </div>`;
         }
     })
 }

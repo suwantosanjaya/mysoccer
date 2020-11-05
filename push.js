@@ -12,10 +12,10 @@ webPush.setVapidDetails(
 );
 
 const pushSubscription = {
-    endpoint: "https://fcm.googleapis.com/fcm/send/eNuyfxP648M:APA91bGntJEO3-NzfQs1XrYfBSxmdG2Pyrx3ZBkU0s9gezdWIAKaXlCIZWc5-mCUCGuJfUn475Wh_08ZL5YA6h8fVa8XZMHvqM5SedewRGkMlm0PVJnu-eYO9bdogJvVAA3WvNarufcz",
+    endpoint: "https://fcm.googleapis.com/fcm/send/deORL4uC4zw:APA91bE27CLhnI_YV1MhcxYlvwfuq2mtpeaMrHX2oKSlpow5MglpAUYIXykF-CgmjFVFsQeHRZObLCogTaSvGqSse0bhjK2Z1jPa2Qiyy3mHbAp16kxplg5m2dbM8mFP7ZNriEvN_kVv",
     keys: {
-        p256dh: "BCklQ31mdS6FpPKoXFm/S54PUxnx9Z2ZDnQdIXnsBWu3oEf5fAN6IpCGT0QNWnb1rfpMfJ5kYFdiydHYEvy34Aw=",
-        auth: "mCl/1jd4OiVZVkHlkB7yAw=="
+        p256dh: "BMIlAwISVLUMxcztuxR7W0Zvpwr/BH/pGgwZ+Lf8hDF9I598x9GwzD3okyQ+HpLLBE2ZKepqR8YAjOPGcoyx97U=",
+        auth: "JPKYADKtz4W8+ScFN4WO2g=="
     }
 };
 
